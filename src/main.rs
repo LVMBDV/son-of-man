@@ -3,7 +3,8 @@ mod sectors;
 use bevy::prelude::*;
 use bevy::math::vec2;
 
-use crate::sectors::geometry::{generate_sector_meshes, SectorGeometryProperties};
+use crate::sectors::rendering::generate_sector_meshes;
+use crate::sectors::geometry::SectorGeometryProperties;
 use crate::sectors::commands::CommandsExt;
 
 fn setup(commands: &mut Commands) {
