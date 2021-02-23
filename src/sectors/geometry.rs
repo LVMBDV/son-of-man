@@ -5,19 +5,22 @@ use bevy::ecs::{Changed, Entity, ResMut, Query};
 use bevy::math::Vec2;
 use bevy::render::mesh::Mesh;
 
+pub struct Portal {
+    pub a: Entity,
+    pub b: Entity
+}
+
+pub struct WallGeometryProperties {
+    pub portal_between: Option<Portal>
+}
+
 pub struct WallGeometry {
-    a: Vec2,
-    b: Vec2,
-    portal_between: Option<Portal>
+    pub a: Vec2,
+    pub b: Vec2,
 }
 
-struct Portal {
-    a: Entity,
-    b: Entity
-}
-
-pub struct Parent {
-    entity: Entity
+pub struct ParentSector {
+    pub entity: Entity
 }
 
 pub struct SectorGeometryProperties {
@@ -27,8 +30,8 @@ pub struct SectorGeometryProperties {
 }
 
 pub struct SectorGeometry {
-    walls: Vec<Entity>,
-    properties: SectorGeometryProperties
+    pub walls: Vec<Entity>,
+    pub properties: SectorGeometryProperties
 }
 
 fn generate_sector_mesh(entity: Entity,
@@ -41,7 +44,7 @@ fn generate_sector_mesh(entity: Entity,
 }
 
 pub fn generate_sector_meshes(all_walls: Query<&WallGeometry>,
-                          changed_walls: Query<&Parent, Changed<WallGeometry>>,
+                          changed_walls: Query<&ParentSector, Changed<WallGeometry>>,
                           changed_sector_geometries: Query<&Entity, Changed<SectorGeometry>>,
                           mut sectors: Query<(&SectorGeometry, &mut Handle<Mesh>)>,
                           meshes: ResMut<Assets<Mesh>>) {
